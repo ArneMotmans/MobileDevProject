@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.a11502064.watchlist.Main3Activity">
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="372dp"
+        android:layout_height="33dp"
+        android:outlineProvider="bounds"
+        app:searchHintIcon="@android:color/black"
+        app:searchIcon="@android:color/black"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="5dp" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="99dp"
@@ -14,5 +24,6 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="209dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 </android.support.constraint.ConstraintLayout>
