@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center"
+        android:text="Popular"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:background="@color/colorPrimary"
+        android:outlineProvider="none"
+        android:onClick="basicToastPopular"
+        android:id="@+id/popularButton"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center"
+        android:text="Top Rated"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:background="@color/colorPrimary"
+        android:outlineProvider="none"
+        android:onClick="basicToastTopRated"
+        android:id="@+id/topRatedButton"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center"
+        android:text="Upcoming"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:background="@color/colorPrimary"
+        android:outlineProvider="none"
+        android:onClick="basicToastUpcoming"
+        android:id="@+id/upcomingButton"/>
+
+</LinearLayout>
