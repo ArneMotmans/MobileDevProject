@@ -1,7 +1,8 @@
-package com.example.a11502064.watchlist;
+package com.example.a11502064.watchlist.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.a11502064.watchlist.R;
 
 public class MainActivity extends BaseActivity {
 

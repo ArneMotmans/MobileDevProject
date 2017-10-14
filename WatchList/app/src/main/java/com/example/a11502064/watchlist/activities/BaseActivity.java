@@ -1,4 +1,4 @@
-package com.example.a11502064.watchlist;
+package com.example.a11502064.watchlist.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.a11502064.watchlist.R;
 
 public class BaseActivity extends AppCompatActivity {
 
