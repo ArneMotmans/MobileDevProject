@@ -53,6 +53,7 @@ public class BaseActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context,text,duration);
         toast.show();
+        startActivity(new Intent(this, MovieDetailsActivity.class));
     }
 
     public void basicToastTopRated(View view){
