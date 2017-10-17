@@ -16,16 +16,16 @@ public interface MovieApiService {
     public final String API_KEY = "0dfa5086610d5e269cd38e12d8778589";
 
     @GET("/3/movie/popular")
-    Call<MoviePage> getPopularMovies(@Query("api_key")String apiKey);
+    Call<MoviePage> getPopularMovies(@Query("page")int page,@Query("api_key")String apiKey);
 
     @GET("/3/movie/now_playing")
-    Call<MoviePage> getNowPlayingMovies(@Query("api_key")String apiKey);
+    Call<MoviePage> getNowPlayingMovies(@Query("page") int page, @Query("api_key")String apiKey);
 
     @GET("/3/movie/upcoming")
-    Call<MoviePage> getUpcomingMovies(@Query("api_key")String apiKey);
+    Call<MoviePage> getUpcomingMovies(@Query("page") int page, @Query("api_key")String apiKey);
 
     @GET("/3/movie/top_rated")
-    Call<MoviePage> getTopRatedMovies(@Query("api_key")String apiKey);
+    Call<MoviePage> getTopRatedMovies(@Query("page") int page, @Query("api_key")String apiKey);
 
     @GET("/3/search/movie")
     Call<MoviePage> getMovie(@Query("api_key")String apiKey,@Query("query") String title);
