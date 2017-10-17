@@ -51,33 +51,4 @@ public class BaseActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void basicToastPopular(View view){
-        Context context = getApplicationContext();
-        CharSequence text = "You clicked the 'Popular' tab";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context,text,duration);
-        toast.show();
-        startActivity(new Intent(this, MovieDetailsActivity.class));
-    }
-
-    public void basicToastTopRated(View view){
-        Context context = getApplicationContext();
-        CharSequence text = "You clicked the 'Top Rated' tab";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context,text,duration);
-        toast.show();
-    }
-
-    public void basicToastUpcoming(View view){
-        Context context = getApplicationContext();
-        CharSequence text = "You clicked the 'Upcoming' tab";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context,text,duration);
-        toast.show();
-    }
-
 }

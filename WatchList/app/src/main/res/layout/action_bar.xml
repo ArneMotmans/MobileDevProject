@@ -23,7 +23,6 @@
         android:textSize="13sp"
         android:background="@color/colorPrimary"
         android:outlineProvider="none"
-        android:onClick="basicToastPopular"
         android:id="@+id/popularButton"
         />
 
@@ -37,7 +36,6 @@
         android:textSize="13sp"
         android:background="@color/colorPrimary"
         android:outlineProvider="none"
-        android:onClick="basicToastTopRated"
         android:id="@+id/topRatedButton"/>
 
     <Button
@@ -50,7 +48,6 @@
         android:textSize="13sp"
         android:background="@color/colorPrimary"
         android:outlineProvider="none"
-        android:onClick="basicToastUpcoming"
         android:id="@+id/upcomingButton"/>
 
 </LinearLayout>
