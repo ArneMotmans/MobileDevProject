@@ -2,15 +2,21 @@ package com.example.a11502064.watchlist.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.a11502064.watchlist.R;
+import com.example.a11502064.watchlist.adapters.SpinnerTabAdapter;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -73,4 +79,5 @@ public class BaseActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context,text,duration);
         toast.show();
     }
+
 }

@@ -5,11 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.a11502064.watchlist.activities.MovieDetailsActivity">
-    
-    <com.google.android.youtube.player.YouTubePlayerView
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:title="Watchlist"-->
+        <!--/>-->
+
+    <!--<com.google.android.youtube.player.YouTubePlayerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/youtube_player_view"-->
+        <!--/>-->
+    <fragment
+        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+        android:id="@+id/youtube_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/youtube_player_view"
-        />
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

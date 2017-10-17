@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <!--<SearchView-->
+        <!--android:id="@+id/searchView"-->
+        <!--android:layout_width="372dp"-->
+        <!--android:layout_height="33dp"-->
+        <!--android:outlineProvider="bounds"-->
+        <!--app:searchHintIcon="@android:color/black"-->
+        <!--app:searchIcon="@android:color/black" />-->
 
     <Button
         android:layout_width="wrap_content"
