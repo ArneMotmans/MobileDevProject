@@ -34,13 +34,13 @@ public class BaseActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menuHome){
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, HomePageActivity.class));
 
         } else if (id == R.id.menuWatchlist){
-            startActivity(new Intent(this, Main2Activity.class));
+            startActivity(new Intent(this, WatchListActivity.class));
 
         } else if (id == R.id.menuWatched){
-            startActivity(new Intent(this, Main3Activity.class));
+            startActivity(new Intent(this, WatchedListActivity.class));
 
         }
         return super.onOptionsItemSelected(item);

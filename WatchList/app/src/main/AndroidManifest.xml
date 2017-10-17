@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.BaseActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.Main3Activity" />
-        <activity android:name=".activities.Main2Activity"></activity>
+        <activity android:name=".activities.WatchedListActivity" />
+        <activity android:name=".activities.WatchListActivity"></activity>
     </application>
 
 </manifest>
