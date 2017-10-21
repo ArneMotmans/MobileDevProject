@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a11502064.watchlist.activities.WatchedListActivity">
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="372dp"
+        android:layout_height="33dp"
+        android:outlineProvider="bounds"
+        app:searchHintIcon="@android:color/black"
+        app:searchIcon="@android:color/black"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="99dp"
+        android:layout_height="62dp"
+        android:text="Watched"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="143dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+</android.support.constraint.ConstraintLayout>

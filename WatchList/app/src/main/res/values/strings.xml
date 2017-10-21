@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">WatchList</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_tab">TabActivity</string>
+    <string name="app_name">Watchlist</string>
+    <string name="homeMenuItemText">Home</string>
+    <string name="watchListMenuItemText">Watchlist</string>
+    <string name="watchedListMenuItemText">Watched</string>
+    <string name="movieGenreLabelText">Genre:</string>
+    <string name="movieDurationLabelText">Duration:</string>
+    <string name="movieReleaseDateLabelText">Release Date:</string>
+    <string name="movieRatingLabelText">Rating:</string>
+    <string name="movieLanguageLabelText">Languages:</string>
+    <string name="descriptionLabelText">Description</string>
 </resources>
