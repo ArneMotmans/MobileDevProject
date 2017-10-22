@@ -21,7 +21,7 @@ public class WatchedListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        menu.findItem(R.id.filterSpinner).getActionView().setVisibility(View.GONE);
+        menu.findItem(R.id.filterSpinnerItem).getActionView().setVisibility(View.GONE);
         return true;
     }
 
@@ -37,6 +37,9 @@ public class WatchedListActivity extends AppCompatActivity {
                 break;
             case R.id.watchedListMenuItem:
                 startActivity(new Intent(this, WatchedListActivity.class));
+                break;
+            case R.id.searchListMenuItem:
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
         }
         return true;

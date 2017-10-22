@@ -18,9 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.WatchListActivity"></activity>
-        <activity android:name=".activities.WatchedListActivity"></activity>
-        <activity android:name=".activities.MovieDetailsActivity"></activity>
+        <activity android:name=".activities.WatchListActivity" />
+        <activity android:name=".activities.WatchedListActivity" />
+        <activity android:name=".activities.MovieDetailsActivity" />
+        <activity android:name=".activities.SearchActivity"></activity>
     </application>
 
 </manifest>
