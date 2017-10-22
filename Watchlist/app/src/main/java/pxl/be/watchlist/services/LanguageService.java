@@ -10,6 +10,8 @@ import pxl.be.watchlist.domain.SpokenLanguage;
 
 public class LanguageService {
     public static String getLanguages(List<SpokenLanguage> spokenLanguages){
+        if (spokenLanguages.size() == 0)
+            return null;
         StringBuilder languages = new StringBuilder();
         languages.append(" ");
         for (SpokenLanguage language: spokenLanguages) {

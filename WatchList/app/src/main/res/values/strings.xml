@@ -9,4 +9,9 @@
     <string name="movieRatingLabelText">Rating:</string>
     <string name="movieLanguageLabelText">Languages:</string>
     <string name="descriptionLabelText">Description</string>
+    <string name="searchBarTitle">Search</string>
+    <string name="searchListMenuItemText">Search</string>
+    <string name="searchMovieTitleLabelText">Title:</string>
+    <string name="movieDescriptionLabelText">Description:</string>
+    <string name="addToWatchListButtonText">Add to Watchlist</string>
 </resources>

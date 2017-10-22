@@ -1,19 +1,14 @@
 package pxl.be.watchlist.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.Spinner;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +18,6 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
 
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.adapters.ActorItemAdapter;
-import pxl.be.watchlist.domain.ActorsPage;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
 import pxl.be.watchlist.services.ImageApiService;
@@ -65,6 +58,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         movieDetails = (MovieDetails)bundle.get("movieDetails");
         showMovieDetails(movieDetails);
 
+        getView(R.id.addToWatchListButton, Button.class).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Save 'movieDetails" to firebase database
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -97,7 +97,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        menu.findItem(R.id.filterSpinner).getActionView().setVisibility(View.GONE);
+        menu.findItem(R.id.filterSpinnerItem).getActionView().setVisibility(View.GONE);
         return true;
     }
 
@@ -114,6 +114,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
             case R.id.watchedListMenuItem:
                 startActivity(new Intent(this, WatchedListActivity.class));
                 break;
+            case R.id.searchListMenuItem:
+                startActivity(new Intent(this, SearchActivity.class));
+                break;
         }
         return true;
     }
@@ -125,19 +128,21 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     }
 
     @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, final boolean wasRestored) {
+    public void onInitializationSuccess(final YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, final boolean wasRestored) {
         movieApiService.getMovieTrailerKeys(movieDetails.getId(),movieApiService.API_KEY).enqueue(new Callback<TrailersPage>() {
             @Override
             public void onResponse(Call<TrailersPage> call, Response<TrailersPage> response) {
                 TrailersPage responseBody = response.body();
-                if (!wasRestored) {
+                if (!wasRestored && responseBody.getTrailers().size() > 0) {
                     youTubePlayer.cueVideo(responseBody.getTrailers().get(0).getKey());
+                } else {
+                    onInitializationFailure(provider,null);
                 }
             }
 
             @Override
             public void onFailure(Call<TrailersPage> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 
@@ -145,6 +150,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
     @Override
         public void onInitializationFailure (YouTubePlayer.Provider provider, YouTubeInitializationResult errorReason) {
-            Toast.makeText(getApplicationContext(), "It failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No trailer available.", Toast.LENGTH_LONG).show();
         }
     }

@@ -3,8 +3,6 @@ package pxl.be.watchlist.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        Spinner filterSpinner = (Spinner)menu.findItem(R.id.filterSpinner).getActionView();
+        Spinner filterSpinner = (Spinner)menu.findItem(R.id.filterSpinnerItem).getActionView();
         ArrayAdapter filtersAdapter = new ArrayAdapter(this, R.layout.spinner_item_layout, R.id.spinnerItem);
         filtersAdapter.addAll(getResources().getStringArray(R.array.homePageFilters));
         filterSpinner.setAdapter(filtersAdapter);
@@ -73,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.watchedListMenuItem:
                 startActivity(new Intent(this, WatchedListActivity.class));
+                break;
+            case R.id.searchListMenuItem:
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
         }
         return true;

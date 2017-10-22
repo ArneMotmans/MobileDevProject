@@ -150,6 +150,16 @@
                 android:paddingRight="7dp"
                 android:layout_marginBottom="5dp"/>
 
+            <Button
+                android:id="@+id/addToWatchListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/moviePosterImageView"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/moviePosterImageView"
+                android:text="@string/addToWatchListButtonText"
+                android:layout_marginBottom="-7dp"/>
+
            <!--<fragment-->
                <!--android:id="@+id/castFragment"-->
                <!--android:name="pxl.be.watchlist.fragments.CastFragment"-->

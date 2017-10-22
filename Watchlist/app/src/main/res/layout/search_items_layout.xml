@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/searchMoviePosterImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/searchMovieTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/searchMovieReleaseDateLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieReleaseDateLabelText"
+            android:layout_below="@+id/searchMovieTitleTextView"/>
+
+        <TextView
+            android:id="@+id/searchMovieReleaseDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/searchMovieReleaseDateLabelTextView"
+            android:layout_alignBaseline="@+id/searchMovieReleaseDateLabelTextView"/>
+
+        <TextView
+            android:id="@+id/searchMovieDescriptionLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieDescriptionLabelText"
+            android:layout_below="@+id/searchMovieReleaseDateLabelTextView"/>
+
+        <TextView
+            android:id="@+id/searchMovieDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/searchMovieDescriptionLabelTextView"
+            android:layout_below="@+id/searchMovieDescriptionLabelTextView"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>
