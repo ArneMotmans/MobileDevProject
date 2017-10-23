@@ -20,13 +20,13 @@ public class MovieDetails implements Serializable{
     @SerializedName("belongs_to_collection")
     private Object mBelongsToCollection;
     @SerializedName("budget")
-    private Long mBudget;
+    private long mBudget;
     @SerializedName("genres")
     private List<Genre> mGenres;
     @SerializedName("homepage")
     private String mHomepage;
     @SerializedName("id")
-    private Long mId;
+    private long mId;
     @SerializedName("imdb_id")
     private String mImdbId;
     @SerializedName("original_language")
@@ -46,9 +46,9 @@ public class MovieDetails implements Serializable{
     @SerializedName("release_date")
     private String mReleaseDate;
     @SerializedName("revenue")
-    private Long mRevenue;
+    private long mRevenue;
     @SerializedName("runtime")
-    private Long mRuntime;
+    private long mRuntime;
     @SerializedName("spoken_languages")
     private List<SpokenLanguage> mSpokenLanguages;
     @SerializedName("status")
@@ -62,7 +62,7 @@ public class MovieDetails implements Serializable{
     @SerializedName("vote_average")
     private Double mVoteAverage;
     @SerializedName("vote_count")
-    private Long mVoteCount;
+    private long mVoteCount;
 
     public Boolean getAdult() {
         return mAdult;
@@ -88,7 +88,7 @@ public class MovieDetails implements Serializable{
         mBelongsToCollection = belongsToCollection;
     }
 
-    public Long getBudget() {
+    public long getBudget() {
         return mBudget;
     }
 
@@ -121,7 +121,7 @@ public class MovieDetails implements Serializable{
         mHomepage = homepage;
     }
 
-    public Long getId() {
+    public long getId() {
         return mId;
     }
 
@@ -201,7 +201,7 @@ public class MovieDetails implements Serializable{
         mReleaseDate = releaseDate;
     }
 
-    public Long getRevenue() {
+    public long getRevenue() {
         return mRevenue;
     }
 
@@ -209,7 +209,7 @@ public class MovieDetails implements Serializable{
         mRevenue = revenue;
     }
 
-    public Long getRuntime() {
+    public long getRuntime() {
         return mRuntime;
     }
 
@@ -265,7 +265,7 @@ public class MovieDetails implements Serializable{
         mVoteAverage = voteAverage;
     }
 
-    public Long getVoteCount() {
+    public long getVoteCount() {
         return mVoteCount;
     }
 
