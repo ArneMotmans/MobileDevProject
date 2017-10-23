@@ -12,24 +12,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+//import com.google.firebase.FirebaseApp;
+//import com.google.firebase.database.DataSnapshot;
+//import com.google.firebase.database.DatabaseError;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import pxl.be.watchlist.R;
-<<<<<<< HEAD
 import pxl.be.watchlist.adapters.ActorItemAdapter;
 import pxl.be.watchlist.domain.ActorsPage;
 import pxl.be.watchlist.domain.Movie;
-=======
->>>>>>> 1ae52683b1b7f1d613fdd09aa399cf5d1b1e0730
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
 import pxl.be.watchlist.services.ImageApiService;
@@ -52,16 +50,16 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private MovieApiService movieApiService;
     private MovieDetails movieDetails;
 
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
+//    private FirebaseDatabase mFirebaseDatabase;
+//    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        initFirebase();
-        addEventFirebaseListener();
+//        initFirebase();
+//        addEventFirebaseListener();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(MovieApiService.BASE_URL)
@@ -76,10 +74,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         movieDetails = (MovieDetails)bundle.get("movieDetails");
         showMovieDetails(movieDetails);
 
+        Firebase.setAndroidContext(this);
+        final Firebase myRef = new Firebase("https://watchlistapp-183207.firebaseio.com/");
+
         getView(R.id.addToWatchListButton, Button.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Save 'movieDetails" to firebase database
+                myRef.child("Watchlist").child(String.valueOf(movieDetails.getId())).setValue(movieDetails);
             }
         });
 
@@ -91,27 +93,29 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
         frag.initialize(API_KEY, this);
 
+
+
     }
 
-    private void addEventFirebaseListener() {
-        mDatabaseReference.child("Watchlist").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Movie movie = dataSnapshot.getValue(Movie.class);
-            }
+//    private void addEventFirebaseListener() {
+//        mDatabaseReference.child("Watchlist").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Movie movie = dataSnapshot.getValue(Movie.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        })
+//    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        })
-    }
-
-    private void initFirebase() {
-        FirebaseApp.initializeApp(this);
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference();
-    }
+//    private void initFirebase() {
+//        FirebaseApp.initializeApp(this);
+//        mFirebaseDatabase = FirebaseDatabase.getInstance();
+//        mDatabaseReference = mFirebaseDatabase.getReference();
+//    }
 
     private void showMovieDetails(MovieDetails movieDetails) {
         getView(R.id.movieTitleTextView, TextView.class).setText(movieDetails.getTitle());
