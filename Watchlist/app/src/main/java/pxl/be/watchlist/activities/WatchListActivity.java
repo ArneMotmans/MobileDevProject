@@ -37,14 +37,14 @@ public class WatchListActivity extends AppCompatActivity {
         myRef.child("Watchlist").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    watchListMovies.add((Movie) dsp.getValue());
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    watchListMovies.add(postSnapshot.getValue(Movie.class));
                 }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
+                System.out.println("It failed");
             }
         });
 
