@@ -6,9 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".activities.WatchListActivity">
 
-    <ListView
-        android:id="@+id/watchListListView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/watchListListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+
+        <TextView android:id="@+id/emptyWatchListTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nothing to show"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

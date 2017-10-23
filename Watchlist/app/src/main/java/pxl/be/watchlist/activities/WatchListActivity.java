@@ -11,36 +11,65 @@ import android.widget.ListView;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.adapters.MovieSearchAdapter;
+import pxl.be.watchlist.adapters.WatchListAdapter;
 import pxl.be.watchlist.databaaaz.WatchList;
 import pxl.be.watchlist.domain.Movie;
+import pxl.be.watchlist.domain.MovieDetails;
+import pxl.be.watchlist.services.MovieApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class WatchListActivity extends AppCompatActivity {
 
     Context context;
     ListView watchListListView;
-    List<WatchList> watchListMovies;
-    Movie movie;
-    static int count = 1;
+    Retrofit retrofit;
+    MovieApiService movieApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
 
-        watchListMovies = SQLite.select().
+        retrofit = new Retrofit.Builder()
+                .baseUrl(MovieApiService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(GuavaCallAdapterFactory.create())
+                .build();
+
+        movieApiService = retrofit.create(MovieApiService.class);
+
+        List<WatchList> movieIds = SQLite.select().
                 from(WatchList.class).queryList();
 
-
-        MovieSearchAdapter movieSearchAdapter = new MovieSearchAdapter(WatchListActivity.this, watchListMovies, null);
-        context = getApplicationContext();
-
+        WatchListAdapter watchListAdapter = new WatchListAdapter(this, new ArrayList<MovieDetails>());
         watchListListView = (ListView) findViewById(R.id.watchListListView);
-        watchListListView.setAdapter(movieSearchAdapter);
+        watchListListView.setAdapter(watchListAdapter);
+        watchListListView.setEmptyView(findViewById(R.id.emptyWatchListTextView));
 
+        for (WatchList watchlistMovie : movieIds) {
+            movieApiService.getMovieDetails(watchlistMovie.getId(),movieApiService.API_KEY).enqueue(new Callback<MovieDetails>() {
+                @Override
+                public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
+                    MovieDetails responseBody = response.body();
+                    WatchListAdapter watchListAdapter = (WatchListAdapter) watchListListView.getAdapter();
+                    watchListAdapter.movies.add(responseBody);
+                    watchListAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<MovieDetails> call, Throwable t) { t.printStackTrace(); }
+            });
+        }
     }
 
 

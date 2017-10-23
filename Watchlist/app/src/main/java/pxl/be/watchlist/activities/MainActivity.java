@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle("Home");
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(MovieApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

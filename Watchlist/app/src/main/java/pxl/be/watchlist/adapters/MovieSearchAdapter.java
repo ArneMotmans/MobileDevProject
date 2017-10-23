@@ -42,11 +42,6 @@ public class MovieSearchAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public MovieSearchAdapter(WatchListActivity context, List<WatchList> watchListMovies, Object movieApiService) {
-        this.watchListMovies = watchListMovies;
-        this.context = context;
-    }
-
     @Override
     public int getCount() {
         return movies.size();
@@ -70,17 +65,6 @@ public class MovieSearchAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.search_items_layout,null);
 
-        if (watchListMovies != null){
-            ((TextView) convertView.findViewById(R.id.searchMovieTitleTextView)).setText(watchListMovies.get(position).getmTitle());
-            ((TextView) convertView.findViewById(R.id.searchMovieReleaseDateTextView)).setText(ReleaseDateService.getFormattedDate(watchListMovies.get(position).getmReleaseDate()));
-            ((TextView) convertView.findViewById(R.id.searchMovieDescriptionTextView)).setText(watchListMovies.get(position).getmOverview());
-
-            Picasso.with(context)
-                    .load(ImageApiService.BASE_URL+watchListMovies.get(position).getmPosterPath())
-                    .placeholder(R.drawable.ic_poster_placeholder)
-                    .error(R.drawable.ic_poster_error)
-                    .into((ImageView)convertView.findViewById(R.id.searchMoviePosterImageView));
-        } else {
             ((TextView) convertView.findViewById(R.id.searchMovieTitleTextView)).setText(movies.get(position).getTitle());
             ((TextView) convertView.findViewById(R.id.searchMovieReleaseDateTextView)).setText(ReleaseDateService.getFormattedDate(movies.get(position).getReleaseDate()));
             ((TextView) convertView.findViewById(R.id.searchMovieDescriptionTextView)).setText(movies.get(position).getOverview());
@@ -90,13 +74,7 @@ public class MovieSearchAdapter extends BaseAdapter {
                     .placeholder(R.drawable.ic_poster_placeholder)
                     .error(R.drawable.ic_poster_error)
                     .into((ImageView)convertView.findViewById(R.id.searchMoviePosterImageView));
-        }
-
         return convertView;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
     }
 
     public void setMovies(List<Movie> movies) {

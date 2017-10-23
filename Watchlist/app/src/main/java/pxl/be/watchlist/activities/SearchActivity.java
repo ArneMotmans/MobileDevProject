@@ -43,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        getSupportActionBar().setTitle("Search");
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(MovieApiService.BASE_URL)
@@ -57,6 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         seachResultListView = (ListView) findViewById(R.id.seachResultListView);
         seachResultListView.setAdapter(movieSearchAdapter);
         seachResultListView.setOnItemClickListener(searchResultClickListener);
+        seachResultListView.setEmptyView(findViewById(R.id.emptySearchListTextView));
 
         movieSearchView = ((SearchView) findViewById(R.id.movieSearchView));
         movieSearchView.setOnQueryTextListener(searchInputListener);
@@ -101,7 +103,6 @@ public class SearchActivity extends AppCompatActivity {
                         MovieSearchAdapter adapter = ((MovieSearchAdapter) seachResultListView.getAdapter());
                         adapter.setMovies(responseBody.getMovies());
                         adapter.notifyDataSetChanged();
-                        //movieSearchView.clearFocus();
                     }
 
                     @Override

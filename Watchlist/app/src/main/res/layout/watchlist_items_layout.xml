@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/watchlistMoviePosterImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/watchlistMovieTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/watchlistMovieReleaseDateLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movieReleaseDateLabelText"
+            android:layout_below="@+id/watchlistMovieTitleTextView"/>
+
+        <TextView
+            android:id="@+id/watchlistMovieReleaseDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/watchlistMovieReleaseDateLabelTextView"
+            android:layout_alignBaseline="@+id/watchlistMovieReleaseDateLabelTextView"/>
+    </RelativeLayout>
+</LinearLayout>

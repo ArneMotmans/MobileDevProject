@@ -23,6 +23,13 @@
             android:layout_below="@+id/movieSearchView"
             android:layout_alignBottom="@+id/movieSearchView"
             android:layout_alignParentBottom="true"/>
+
+        <TextView
+            android:id="@+id/emptySearchListTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Results"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
 
