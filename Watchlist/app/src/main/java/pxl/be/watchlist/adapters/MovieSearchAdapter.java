@@ -21,6 +21,8 @@ import java.util.List;
 
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.activities.MovieDetailsActivity;
+import pxl.be.watchlist.activities.WatchListActivity;
+import pxl.be.watchlist.databaaaz.WatchList;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.services.ImageApiService;
@@ -33,9 +35,15 @@ import retrofit2.Response;
 public class MovieSearchAdapter extends BaseAdapter {
     private Context context;
     public List<Movie> movies;
+    public List<WatchList> watchListMovies;
 
     public MovieSearchAdapter(@NonNull Context context, @NonNull List<Movie> movies, MovieApiService movieApiService) {
         this.movies = movies;
+        this.context = context;
+    }
+
+    public MovieSearchAdapter(WatchListActivity context, List<WatchList> watchListMovies, Object movieApiService) {
+        this.watchListMovies = watchListMovies;
         this.context = context;
     }
 
@@ -62,15 +70,28 @@ public class MovieSearchAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.search_items_layout,null);
 
-        ((TextView) convertView.findViewById(R.id.searchMovieTitleTextView)).setText(movies.get(position).getTitle());
-        ((TextView) convertView.findViewById(R.id.searchMovieReleaseDateTextView)).setText(ReleaseDateService.getFormattedDate(movies.get(position).getReleaseDate()));
-        ((TextView) convertView.findViewById(R.id.searchMovieDescriptionTextView)).setText(movies.get(position).getOverview());
+        if (watchListMovies != null){
+            ((TextView) convertView.findViewById(R.id.searchMovieTitleTextView)).setText(watchListMovies.get(position).getmTitle());
+            ((TextView) convertView.findViewById(R.id.searchMovieReleaseDateTextView)).setText(ReleaseDateService.getFormattedDate(watchListMovies.get(position).getmReleaseDate()));
+            ((TextView) convertView.findViewById(R.id.searchMovieDescriptionTextView)).setText(watchListMovies.get(position).getmOverview());
 
-        Picasso.with(context)
-                .load(ImageApiService.BASE_URL+movies.get(position).getPosterPath())
-                .placeholder(R.drawable.ic_poster_placeholder)
-                .error(R.drawable.ic_poster_error)
-                .into((ImageView)convertView.findViewById(R.id.searchMoviePosterImageView));
+            Picasso.with(context)
+                    .load(ImageApiService.BASE_URL+watchListMovies.get(position).getmPosterPath())
+                    .placeholder(R.drawable.ic_poster_placeholder)
+                    .error(R.drawable.ic_poster_error)
+                    .into((ImageView)convertView.findViewById(R.id.searchMoviePosterImageView));
+        } else {
+            ((TextView) convertView.findViewById(R.id.searchMovieTitleTextView)).setText(movies.get(position).getTitle());
+            ((TextView) convertView.findViewById(R.id.searchMovieReleaseDateTextView)).setText(ReleaseDateService.getFormattedDate(movies.get(position).getReleaseDate()));
+            ((TextView) convertView.findViewById(R.id.searchMovieDescriptionTextView)).setText(movies.get(position).getOverview());
+
+            Picasso.with(context)
+                    .load(ImageApiService.BASE_URL+movies.get(position).getPosterPath())
+                    .placeholder(R.drawable.ic_poster_placeholder)
+                    .error(R.drawable.ic_poster_error)
+                    .into((ImageView)convertView.findViewById(R.id.searchMoviePosterImageView));
+        }
+
         return convertView;
     }
 

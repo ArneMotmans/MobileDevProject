@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.firebase.client.Firebase;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
@@ -25,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.adapters.ActorItemAdapter;
+import pxl.be.watchlist.databaaaz.WatchList;
 import pxl.be.watchlist.domain.ActorsPage;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
@@ -41,24 +40,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
-public class MovieDetailsActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener{
+public class MovieDetailsActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener {
 
     public static final String API_KEY = "AIzaSyCzyQUfjEdK1UtZ-RgfcgzmXp6GH584rY8";
 
     private Retrofit retrofit;
     private MovieApiService movieApiService;
     private MovieDetails movieDetails;
-
-//    private FirebaseDatabase mFirebaseDatabase;
-//    private DatabaseReference mDatabaseReference;
+    private static int count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-
-//        initFirebase();
-//        addEventFirebaseListener();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(MovieApiService.BASE_URL)
@@ -73,14 +67,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         movieDetails = (MovieDetails) bundle.get("movieDetails");
         showMovieDetails(movieDetails);
 
-        Firebase.setAndroidContext(this);
-        final Firebase myRef = new Firebase("https://watchlistapp-183207.firebaseio.com/");
-
         getView(R.id.addToWatchListButton, Button.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Save 'movieDetails" to firebase database
-                myRef.child("Watchlist").child(String.valueOf(movieDetails.getId())).setValue(movieDetails);
+                WatchList movieToBeAdded = new WatchList();
+                movieToBeAdded.setId(movieDetails.getId());
+                movieToBeAdded.save();
             }
         });
 
@@ -93,6 +86,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         frag.initialize(API_KEY, this);
 
     }
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> dabddeeb8d0af908d396f83c3b21fbb367c4a8af
 //    private void addEventFirebaseListener() {
 //        mDatabaseReference.child("Watchlist").addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -118,17 +116,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         getView(R.id.movieGenreTextView, TextView.class).setText(movieDetails.getGenresString());
         getView(R.id.movieDurationTextView, TextView.class).setText(RunTimeService.getRunTime(movieDetails.getRuntime() == null ? 0 : movieDetails.getRuntime()));
         getView(R.id.movieReleaseDateTextView, TextView.class).setText(ReleaseDateService.getFormattedDate(movieDetails.getReleaseDate()));
-        getView(R.id.movieRatingTextView, TextView.class).setText(String.format(" %s/10",movieDetails.getVoteAverage()));
+        getView(R.id.movieRatingTextView, TextView.class).setText(String.format(" %s/10", movieDetails.getVoteAverage()));
         getView(R.id.movieVoteCountTextView, TextView.class).setText(String.format("\t(%s votes)", movieDetails.getVoteCount()));
         getView(R.id.movieLanguageTextView, TextView.class).setText(LanguageService.getLanguages(movieDetails.getSpokenLanguages()));
         getView(R.id.movieDescriptionTextView, TextView.class).setText(movieDetails.getOverview());
-        Picasso.with(this).load(ImageApiService.BASE_URL+movieDetails.getPosterPath())
+        Picasso.with(this).load(ImageApiService.BASE_URL + movieDetails.getPosterPath())
                 .placeholder(R.drawable.ic_poster_placeholder)
                 .error(R.drawable.ic_poster_error)
                 .into(getView(R.id.moviePosterImageView, ImageView.class));
     }
 
-    private <T extends View> T getView(int id, Class<T> type){
+    private <T extends View> T getView(int id, Class<T> type) {
         return type.cast(findViewById(id));
     }
 
@@ -142,7 +140,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.homeMenuItem:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
@@ -164,14 +162,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
     @Override
     public void onInitializationSuccess(final YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, final boolean wasRestored) {
-        movieApiService.getMovieTrailerKeys(movieDetails.getId(),movieApiService.API_KEY).enqueue(new Callback<TrailersPage>() {
+        movieApiService.getMovieTrailerKeys(movieDetails.getId(), movieApiService.API_KEY).enqueue(new Callback<TrailersPage>() {
             @Override
             public void onResponse(Call<TrailersPage> call, Response<TrailersPage> response) {
                 TrailersPage responseBody = response.body();
                 if (!wasRestored && responseBody.getTrailers().size() > 0) {
                     youTubePlayer.cueVideo(responseBody.getTrailers().get(0).getKey());
                 } else {
-                    onInitializationFailure(provider,null);
+                    onInitializationFailure(provider, null);
                 }
             }
 
@@ -184,7 +182,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     }
 
     @Override
-        public void onInitializationFailure (YouTubePlayer.Provider provider, YouTubeInitializationResult errorReason) {
-            Toast.makeText(getApplicationContext(), "No trailer available.", Toast.LENGTH_LONG).show();
-        }
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult errorReason) {
+        Toast.makeText(getApplicationContext(), "No trailer available.", Toast.LENGTH_LONG).show();
     }
+}

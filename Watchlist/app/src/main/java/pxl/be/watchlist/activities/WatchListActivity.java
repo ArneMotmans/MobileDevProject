@@ -9,44 +9,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.adapters.MovieSearchAdapter;
+import pxl.be.watchlist.databaaaz.WatchList;
 import pxl.be.watchlist.domain.Movie;
 
 public class WatchListActivity extends AppCompatActivity {
 
     Context context;
     ListView watchListListView;
-    ArrayList<Movie> watchListMovies;
+    List<WatchList> watchListMovies;
+    Movie movie;
+    static int count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
 
-        Firebase.setAndroidContext(this);
-        final Firebase myRef = new Firebase("https://watchlistapp-183207.firebaseio.com/");
-
-        myRef.child("Watchlist").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    watchListMovies.add(postSnapshot.getValue(Movie.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("It failed");
-            }
-        });
+        watchListMovies = SQLite.select().
+                from(WatchList.class).queryList();
 
 
         MovieSearchAdapter movieSearchAdapter = new MovieSearchAdapter(WatchListActivity.this, watchListMovies, null);
@@ -56,6 +42,7 @@ public class WatchListActivity extends AppCompatActivity {
         watchListListView.setAdapter(movieSearchAdapter);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

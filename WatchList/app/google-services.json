@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:323435909054:android:df4a8081d197dfdd",
+        "mobilesdk_app_id": "1:323435909054:android:d8a1868e2171cd26",
         "android_client_info": {
-          "package_name": "com.example.a11502064.watchlist"
+          "package_name": "pxl.be.watchlist"
         }
       },
       "oauth_client": [
         {
-          "client_id": "323435909054-to07lpmfpb29a6db743122ev3u4p0fug.apps.googleusercontent.com",
+          "client_id": "323435909054-rltd4qqars0152s1f5l3ksgsos7ap7i4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.a11502064.watchlist",
+            "package_name": "pxl.be.watchlist",
             "certificate_hash": "ffcb27ed9489cba3be315dcf3b0000ba209a3430"
           }
         },
