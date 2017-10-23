@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import pxl.be.watchlist.R;
-<<<<<<< HEAD
-import pxl.be.watchlist.adapters.ActorItemAdapter;
-import pxl.be.watchlist.domain.ActorsPage;
 import pxl.be.watchlist.domain.Movie;
-=======
->>>>>>> 1ae52683b1b7f1d613fdd09aa399cf5d1b1e0730
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
 import pxl.be.watchlist.services.ImageApiService;
@@ -104,7 +98,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        })
+        });
     }
 
     private void initFirebase() {
