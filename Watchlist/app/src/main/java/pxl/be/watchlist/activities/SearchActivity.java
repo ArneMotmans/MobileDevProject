@@ -87,27 +87,30 @@ public class SearchActivity extends AppCompatActivity {
     private SearchView.OnQueryTextListener searchInputListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            movieApiService.searchMovie(movieApiService.API_KEY, query).enqueue(new Callback<MoviePage>() {
-                @Override
-                public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
-                    MoviePage responseBody = response.body();
-                    ListView seachResultListView = (ListView) findViewById(R.id.seachResultListView);
-                    MovieSearchAdapter adapter = ((MovieSearchAdapter) seachResultListView.getAdapter());
-                    adapter.setMovies(responseBody.getMovies());
-                    adapter.notifyDataSetChanged();
-                    movieSearchView.clearFocus();
-                }
-
-                @Override
-                public void onFailure(Call<MoviePage> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-            return true;
+            return false;
         }
 
         @Override
         public boolean onQueryTextChange(String newText) {
+            if (!newText.equals("")) {
+                movieApiService.searchMovie(movieApiService.API_KEY, newText).enqueue(new Callback<MoviePage>() {
+                    @Override
+                    public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
+                        MoviePage responseBody = response.body();
+                        ListView seachResultListView = (ListView) findViewById(R.id.seachResultListView);
+                        MovieSearchAdapter adapter = ((MovieSearchAdapter) seachResultListView.getAdapter());
+                        adapter.setMovies(responseBody.getMovies());
+                        adapter.notifyDataSetChanged();
+                        //movieSearchView.clearFocus();
+                    }
+
+                    @Override
+                    public void onFailure(Call<MoviePage> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+                return true;
+            }
             return false;
         }
     };
