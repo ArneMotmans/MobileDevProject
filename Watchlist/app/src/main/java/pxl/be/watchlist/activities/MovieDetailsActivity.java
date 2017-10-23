@@ -70,7 +70,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        movieDetails = (MovieDetails)bundle.get("movieDetails");
+        movieDetails = (MovieDetails) bundle.get("movieDetails");
         showMovieDetails(movieDetails);
 
         Firebase.setAndroidContext(this);
@@ -92,15 +92,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
         frag.initialize(API_KEY, this);
 
-
-
-<<<<<<< HEAD
-            }
-        });
-=======
->>>>>>> 4541e2b1c07d5f7540f09a99da95fe03c622c2ed
     }
-
 //    private void addEventFirebaseListener() {
 //        mDatabaseReference.child("Watchlist").addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -124,7 +116,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private void showMovieDetails(MovieDetails movieDetails) {
         getView(R.id.movieTitleTextView, TextView.class).setText(movieDetails.getTitle());
         getView(R.id.movieGenreTextView, TextView.class).setText(movieDetails.getGenresString());
-        getView(R.id.movieDurationTextView, TextView.class).setText(RunTimeService.getRunTime(movieDetails.getRuntime()));
+        getView(R.id.movieDurationTextView, TextView.class).setText(RunTimeService.getRunTime(movieDetails.getRuntime() == null ? 0 : movieDetails.getRuntime()));
         getView(R.id.movieReleaseDateTextView, TextView.class).setText(ReleaseDateService.getFormattedDate(movieDetails.getReleaseDate()));
         getView(R.id.movieRatingTextView, TextView.class).setText(String.format(" %s/10",movieDetails.getVoteAverage()));
         getView(R.id.movieVoteCountTextView, TextView.class).setText(String.format("\t(%s votes)", movieDetails.getVoteCount()));

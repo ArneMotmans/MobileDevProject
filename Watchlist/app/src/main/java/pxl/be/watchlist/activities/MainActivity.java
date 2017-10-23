@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(adapter.movies, new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
-                            return (int)(o1.getPopularity() - o2.getPopularity());
+                            return o2.getPopularity().compareTo(o1.getPopularity());
                         }
                     });
                     adapter.notifyDataSetChanged();
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(adapter.movies, new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
-                            return (int) (o1.getVoteCount() - o2.getVoteCount());
+                            return o2.getVoteAverage().compareTo(o1.getVoteAverage());
                         }
                     });
                     adapter.notifyDataSetChanged();
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(adapter.movies, new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
-                            return (int)(o1.getPopularity() - o2.getPopularity());
+                            return o1.getPopularity().compareTo(o2.getPopularity());
                         }
                     });
                     adapter.notifyDataSetChanged();
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(adapter.movies, new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
-                            return (int)(o1.getPopularity() - o2.getPopularity());
+                            return o2.getPopularity().compareTo(o1.getPopularity());
                         }
                     });
                     adapter.notifyDataSetChanged();
