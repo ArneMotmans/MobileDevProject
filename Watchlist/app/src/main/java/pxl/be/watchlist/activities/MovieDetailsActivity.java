@@ -117,13 +117,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
             case R.id.searchListMenuItem:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
+            case 16908332:
+                onBackPressed();
+                break;
         }
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
         return true;
     }
 
