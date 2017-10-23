@@ -37,6 +37,13 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-guava:2.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+<<<<<<< HEAD
+    compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.google.firebase:firebase-database:9.6.1'
+
+
+=======
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+>>>>>>> 1ae52683b1b7f1d613fdd09aa399cf5d1b1e0730
     testCompile 'junit:junit:4.12'
 }
