@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +94,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
 
 
+<<<<<<< HEAD
+            }
+        });
+=======
+>>>>>>> 4541e2b1c07d5f7540f09a99da95fe03c622c2ed
     }
 
 //    private void addEventFirebaseListener() {
