@@ -86,8 +86,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         frag.initialize(API_KEY, this);
 
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> dabddeeb8d0af908d396f83c3b21fbb367c4a8af
 //    private void addEventFirebaseListener() {
 //        mDatabaseReference.child("Watchlist").addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -111,7 +114,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private void showMovieDetails(MovieDetails movieDetails) {
         getView(R.id.movieTitleTextView, TextView.class).setText(movieDetails.getTitle());
         getView(R.id.movieGenreTextView, TextView.class).setText(movieDetails.getGenresString());
-        getView(R.id.movieDurationTextView, TextView.class).setText(RunTimeService.getRunTime(movieDetails.getRuntime()));
+        getView(R.id.movieDurationTextView, TextView.class).setText(RunTimeService.getRunTime(movieDetails.getRuntime() == null ? 0 : movieDetails.getRuntime()));
         getView(R.id.movieReleaseDateTextView, TextView.class).setText(ReleaseDateService.getFormattedDate(movieDetails.getReleaseDate()));
         getView(R.id.movieRatingTextView, TextView.class).setText(String.format(" %s/10", movieDetails.getVoteAverage()));
         getView(R.id.movieVoteCountTextView, TextView.class).setText(String.format("\t(%s votes)", movieDetails.getVoteCount()));
