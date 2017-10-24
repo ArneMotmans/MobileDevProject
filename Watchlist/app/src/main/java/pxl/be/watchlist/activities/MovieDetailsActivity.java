@@ -1,6 +1,7 @@
 package pxl.be.watchlist.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import pxl.be.watchlist.domain.ActorsPage;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
+import pxl.be.watchlist.services.DatabaseService;
 import pxl.be.watchlist.services.ImageApiService;
 import pxl.be.watchlist.services.LanguageService;
 import pxl.be.watchlist.services.MovieApiService;
@@ -65,6 +67,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         movieDetails = (MovieDetails) bundle.get("movieDetails");
+        if (DatabaseService.checkIfAddedToWatchlist(movieDetails.getId())) {
+            DisableAddToWatchlistButton();
+        }
         showMovieDetails(movieDetails);
 
         getView(R.id.addToWatchListButton, Button.class).setOnClickListener(new View.OnClickListener() {
@@ -74,6 +79,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 WatchList movieToBeAdded = new WatchList();
                 movieToBeAdded.setId(movieDetails.getId());
                 movieToBeAdded.save();
+                DisableAddToWatchlistButton();
             }
         });
 
@@ -85,6 +91,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
         frag.initialize(API_KEY, this);
 
+    }
+
+    private void DisableAddToWatchlistButton(){
+        Button button = getView(R.id.addToWatchListButton, Button.class);
+        button.setText("Added to watchlist");
+        button.setEnabled(false);
     }
 
     private void showMovieDetails(MovieDetails movieDetails) {
