@@ -61,6 +61,10 @@ public class SearchActivity extends AppCompatActivity {
         seachResultListView.setEmptyView(findViewById(R.id.emptySearchListTextView));
 
         movieSearchView = ((SearchView) findViewById(R.id.movieSearchView));
+        movieSearchView.setQuery("",true);
+        movieSearchView.setFocusable(true);
+        movieSearchView.setIconified(false);
+        movieSearchView.requestFocusFromTouch();
         movieSearchView.setOnQueryTextListener(searchInputListener);
     }
 

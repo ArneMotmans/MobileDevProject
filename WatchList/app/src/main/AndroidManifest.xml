@@ -21,7 +21,8 @@
         <activity android:name=".activities.WatchListActivity" />
         <activity android:name=".activities.WatchedListActivity" />
         <activity android:name=".activities.MovieDetailsActivity" />
-        <activity android:name=".activities.SearchActivity"></activity>
+        <activity android:name=".activities.SearchActivity"
+            android:windowSoftInputMode="stateVisible"></activity>
     </application>
 
 </manifest>
