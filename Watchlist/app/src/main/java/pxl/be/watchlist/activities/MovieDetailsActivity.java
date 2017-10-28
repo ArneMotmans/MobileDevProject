@@ -1,7 +1,6 @@
 package pxl.be.watchlist.activities;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,22 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-//import com.google.firebase.FirebaseApp;
-//import com.google.firebase.database.DataSnapshot;
-//import com.google.firebase.database.DatabaseError;
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
-//import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.adapters.ActorItemAdapter;
 import pxl.be.watchlist.databaaaz.WatchList;
-import pxl.be.watchlist.domain.ActorsPage;
-import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
 import pxl.be.watchlist.services.DatabaseService;
@@ -68,7 +59,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         Bundle bundle = intent.getExtras();
         movieDetails = (MovieDetails) bundle.get("movieDetails");
         if (DatabaseService.checkIfAddedToWatchlist(movieDetails.getId())) {
-            DisableAddToWatchlistButton();
+            DisableAddToWatchlistButton("Added to watchlist");
+        }
+        if (DatabaseService.checkIfAddedToWatchedList(movieDetails.getId())) {
+            DisableAddToWatchlistButton("Watched");
         }
         showMovieDetails(movieDetails);
 
@@ -79,7 +73,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 WatchList movieToBeAdded = new WatchList();
                 movieToBeAdded.setId(movieDetails.getId());
                 movieToBeAdded.save();
-                DisableAddToWatchlistButton();
+                DisableAddToWatchlistButton("Added to watchlist");
             }
         });
 
@@ -93,9 +87,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
     }
 
-    private void DisableAddToWatchlistButton(){
+    private void DisableAddToWatchlistButton(String text){
         Button button = getView(R.id.addToWatchListButton, Button.class);
-        button.setText("Added to watchlist");
+        button.setText(text);
         button.setEnabled(false);
     }
 

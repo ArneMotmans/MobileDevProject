@@ -6,12 +6,28 @@
     android:layout_height="match_parent"
     tools:context="pxl.be.watchlist.activities.MainActivity">
 
-    <GridView
-        android:id="@+id/moviePostersGridView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3">
+        android:layout_height="match_parent">
+        <GridView
+            android:id="@+id/moviePostersGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3">
 
-    </GridView>
+        </GridView>
 
+        <TextView
+            android:id="@+id/noInternetTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noInternetText"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
+        <FrameLayout
+            android:id="@+id/youtubeFragmentContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

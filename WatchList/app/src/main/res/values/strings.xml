@@ -14,4 +14,7 @@
     <string name="searchMovieTitleLabelText">Title:</string>
     <string name="movieDescriptionLabelText">Description:</string>
     <string name="addToWatchListButtonText">Add to Watchlist</string>
+    <string name="noInternetText">No internet connection</string>
+    <string name="removeFromWatchlistText">Remove from watchlist</string>
+    <string name="watchedText">Watched</string>
 </resources>

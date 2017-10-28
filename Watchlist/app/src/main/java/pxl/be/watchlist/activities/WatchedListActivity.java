@@ -55,7 +55,7 @@ public class WatchedListActivity extends AppCompatActivity {
                 from(Watched.class).queryList();
 
 
-        WatchListAdapter watchListAdapter = new WatchListAdapter(this, new ArrayList<MovieDetails>());
+        WatchListAdapter watchListAdapter = new WatchListAdapter(this, new ArrayList<MovieDetails>(), movieApiService, false);
         watchedListListView = (ListView) findViewById(R.id.watchedListView);
         watchedListListView.setAdapter(watchListAdapter);
         watchedListListView.setEmptyView(findViewById(R.id.emptyWatchedListTextView));

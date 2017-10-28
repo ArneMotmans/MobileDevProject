@@ -51,7 +51,7 @@ public class WatchListActivity extends AppCompatActivity {
         List<WatchList> movieIds = SQLite.select().
                 from(WatchList.class).queryList();
 
-        WatchListAdapter watchListAdapter = new WatchListAdapter(this, new ArrayList<MovieDetails>());
+        WatchListAdapter watchListAdapter = new WatchListAdapter(this, new ArrayList<MovieDetails>(), movieApiService, true);
         watchListListView = (ListView) findViewById(R.id.watchListListView);
         watchListListView.setAdapter(watchListAdapter);
         watchListListView.setEmptyView(findViewById(R.id.emptyWatchListTextView));
@@ -71,7 +71,6 @@ public class WatchListActivity extends AppCompatActivity {
             });
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

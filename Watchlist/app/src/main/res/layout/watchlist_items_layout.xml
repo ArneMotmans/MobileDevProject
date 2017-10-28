@@ -34,5 +34,22 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/watchlistMovieReleaseDateLabelTextView"
             android:layout_alignBaseline="@+id/watchlistMovieReleaseDateLabelTextView"/>
+
+        <Button
+            android:id="@+id/watchedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/watchedText"
+            android:layout_below="@+id/watchlistMovieReleaseDateLabelTextView"/>
+
+        <Button
+            android:id="@+id/removeFromWatchlistButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/removeFromWatchlistText"
+            android:layout_toRightOf="@+id/watchedButton"
+            android:layout_alignBottom="@+id/watchedButton"/>
+
+
     </RelativeLayout>
 </LinearLayout>

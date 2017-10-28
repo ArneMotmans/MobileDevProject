@@ -1,10 +1,15 @@
 package pxl.be.watchlist.adapters;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,6 +24,7 @@ import pxl.be.watchlist.activities.MainActivity;
 import pxl.be.watchlist.activities.MovieDetailsActivity;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
+import pxl.be.watchlist.fragments.MovieDetailsFragment;
 import pxl.be.watchlist.services.ImageApiService;
 import pxl.be.watchlist.services.MovieApiService;
 import retrofit2.Call;
@@ -30,12 +36,14 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
     private Context context;
     public List<Movie> movies;
     private MovieApiService movieApiService;
+    private int orientation;
 
-    public MoviePostersAdapter(@NonNull Context context, @NonNull List<Movie> movies, MovieApiService movieApiService) {
+    public MoviePostersAdapter(@NonNull Context context, @NonNull List<Movie> movies, MovieApiService movieApiService, int orientation) {
         super(context, -1, movies);
         this.context = context;
         this.movies = movies;
         this.movieApiService = movieApiService;
+        this.orientation = orientation;
     }
 
     @NonNull
@@ -48,27 +56,12 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
             imageView = (ImageView) convertView;
         }
         imageView.setAdjustViewBounds(true);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                movieApiService.getMovieDetails(movies.get(position).getId(), MovieApiService.API_KEY).enqueue(new Callback<MovieDetails>() {
-                    @Override
-                    public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
-                        MovieDetails responseBody = response.body();
-                        Intent intent = new Intent(context, MovieDetailsActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("movieDetails", responseBody);
-                        intent.putExtras(bundle);
-                        context.startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<MovieDetails> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-            }
-        });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    movieApiService.getMovieDetails(movies.get(position).getId(), MovieApiService.API_KEY).enqueue(movieDetailsCallback);
+                }
+            });
 
         Picasso.with(context)
                 .load(ImageApiService.BASE_URL+movies.get(position).getPosterPath())
@@ -77,6 +70,33 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
                 .into(imageView);
         return imageView;
     }
+
+    public Callback<MovieDetails> movieDetailsCallback = new Callback<MovieDetails>() {
+        @Override
+        public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
+            MovieDetails responseBody = response.body();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("movieDetails", responseBody);
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            } else {
+                Activity mainActivity = ((Activity)context);
+                MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
+                movieDetailsFragment.setArguments(bundle);
+                FragmentManager fragmentManager = mainActivity.getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.movieDetailsContainer,movieDetailsFragment);
+                transaction.commit();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<MovieDetails> call, Throwable t) {
+            t.printStackTrace();
+        }
+    };
 
     public void addMovies(List<Movie> moviesToAdd){
         movies.addAll(moviesToAdd);

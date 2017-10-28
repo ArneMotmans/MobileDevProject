@@ -1,6 +1,9 @@
 package pxl.be.watchlist.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -87,15 +90,19 @@ public class MainActivity extends AppCompatActivity {
             switch (i){
                 case 0:
                     onPopularTabClicked();
+                    showNoInternetConnectionMessage();
                     break;
                 case 1:
                     onTopRatedClicked();
+                    showNoInternetConnectionMessage();
                     break;
                 case 2:
                     onOutNowClicked();
+                    showNoInternetConnectionMessage();
                     break;
                 case 3:
                     onUpcomingClicked();
+                    showNoInternetConnectionMessage();
             }
         }
 
@@ -106,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void onUpcomingClicked() {
-        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService);
+        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
 
         for (int i = 1; i <= 5; i++) {
@@ -135,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onTopRatedClicked() {
-        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService);
+        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
 
         for (int i = 1; i <= 5; i++) {
@@ -164,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onPopularTabClicked(){
-        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService);
+        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
 
         for (int i = 1; i <= 5; i++) {
@@ -193,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onOutNowClicked(){
-        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService);
+        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
 
         for (int i = 1; i <= 5; i++) {
@@ -218,6 +225,26 @@ public class MainActivity extends AppCompatActivity {
                     t.printStackTrace();
                 }
             });
+        }
+    }
+
+    public static boolean isNetworkStatusAvialable (Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null)
+        {
+            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+            if(netInfos != null)
+                if(netInfos.isConnected())
+                    return true;
+        }
+        return false;
+    }
+
+    public void showNoInternetConnectionMessage(){
+        if(isNetworkStatusAvialable (getApplicationContext())) {
+            findViewById(R.id.noInternetTextView).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.noInternetTextView).setVisibility(View.VISIBLE);
         }
     }
 }
