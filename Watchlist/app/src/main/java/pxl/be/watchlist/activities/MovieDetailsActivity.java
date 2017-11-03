@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,15 +63,20 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         if (DatabaseService.checkIfAddedToWatchlist(movieDetails.getId())) {
             DisableAddToWatchlistButton("Added to watchlist");
         }
-        if (DatabaseService.checkIfAddedToWatchedList(movieDetails.getId())) {
-            DisableAddToWatchlistButton("Watched");
-        }
+//        if (DatabaseService.checkIfAddedToWatchedList(movieDetails.getId())) {
+//            DisableAddToWatchlistButton("Watched");
+//        }
         showMovieDetails(movieDetails);
+
+//        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+//        final Animation animRotate = AnimationUtils.loadAnimation(this, R.anim.anim_rotate);
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 
         getView(R.id.addToWatchListButton, Button.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Save 'movieDetails" to firebase database
+                view.startAnimation(animAlpha);
                 WatchList movieToBeAdded = new WatchList();
                 movieToBeAdded.setId(movieDetails.getId());
                 movieToBeAdded.save();
