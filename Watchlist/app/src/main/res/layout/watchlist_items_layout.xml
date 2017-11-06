@@ -3,22 +3,23 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/watchlistMoviePosterImageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3"/>
+
 
     <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.7"
         android:padding="5dp">
+        <ImageView
+            android:id="@+id/watchlistMoviePosterImageView"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"/>
         <TextView
             android:id="@+id/watchlistMovieTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/watchlistMoviePosterImageView"
             android:textSize="18sp"/>
 
         <TextView
@@ -26,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/movieReleaseDateLabelText"
-            android:layout_below="@+id/watchlistMovieTitleTextView"/>
+            android:layout_below="@+id/watchlistMovieTitleTextView"
+            android:layout_toRightOf="@+id/watchlistMoviePosterImageView"/>
 
         <TextView
             android:id="@+id/watchlistMovieReleaseDateTextView"
@@ -40,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/watchedText"
-            android:layout_below="@+id/watchlistMovieReleaseDateLabelTextView"/>
+            android:layout_below="@+id/watchlistMovieReleaseDateLabelTextView"
+            android:layout_toRightOf="@+id/watchlistMoviePosterImageView"/>
 
         <Button
             android:id="@+id/removeFromWatchlistButton"
@@ -49,7 +52,5 @@
             android:text="@string/removeFromWatchlistText"
             android:layout_toRightOf="@+id/watchedButton"
             android:layout_alignBottom="@+id/watchedButton"/>
-
-
     </RelativeLayout>
 </LinearLayout>

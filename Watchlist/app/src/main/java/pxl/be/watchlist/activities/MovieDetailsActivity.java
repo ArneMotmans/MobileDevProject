@@ -42,7 +42,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private Retrofit retrofit;
     private MovieApiService movieApiService;
     private MovieDetails movieDetails;
-    private static int count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +62,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         if (DatabaseService.checkIfAddedToWatchlist(movieDetails.getId())) {
             DisableAddToWatchlistButton("Added to watchlist");
         }
-//        if (DatabaseService.checkIfAddedToWatchedList(movieDetails.getId())) {
-//            DisableAddToWatchlistButton("Watched");
-//        }
+        if (DatabaseService.checkIfAddedToWatchedList(movieDetails.getId())) {
+            DisableAddToWatchlistButton("Watched");
+        }
         showMovieDetails(movieDetails);
 
 //        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
