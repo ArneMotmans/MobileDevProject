@@ -7,7 +7,7 @@
     <string name="movieDurationLabelText">Duration:</string>
     <string name="movieReleaseDateLabelText">Release Date:</string>
     <string name="movieRatingLabelText">Rating:</string>
-    <string name="movieLanguageLabelText">Languages:</string>
+    <string name="movieLanguageLabelText">Language:</string>
     <string name="descriptionLabelText">Description</string>
     <string name="searchBarTitle">Search</string>
     <string name="searchListMenuItemText">Search</string>
