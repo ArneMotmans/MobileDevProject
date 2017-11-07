@@ -1,6 +1,5 @@
 package pxl.be.watchlist.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.adapters.MovieSearchAdapter;
 import pxl.be.watchlist.adapters.WatchListAdapter;
-import pxl.be.watchlist.databaaaz.WatchList;
-import pxl.be.watchlist.domain.Movie;
+import pxl.be.watchlist.database.WatchList;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.services.MovieApiService;
 import retrofit2.Call;
@@ -30,10 +27,9 @@ import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class WatchListActivity extends AppCompatActivity {
 
-    Context context;
-    ListView watchListListView;
-    Retrofit retrofit;
-    MovieApiService movieApiService;
+    private ListView watchListListView;
+    private Retrofit retrofit;
+    private MovieApiService movieApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

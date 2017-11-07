@@ -10,4 +10,5 @@
         android:textSize="16dp"
         android:padding="5dp"
         android:textColor="@color/textColorNormal"/>
+
 </LinearLayout>

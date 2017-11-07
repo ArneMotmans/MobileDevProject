@@ -1,16 +1,11 @@
-
 package pxl.be.watchlist.domain;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Generated;
 
 @Generated("net.hexar.json2pojo")
-@SuppressWarnings("unused")
 public class MovieDetails implements Serializable{
 
     @SerializedName("adult")

@@ -170,4 +170,5 @@
                 android:layout_below="@+id/movieDescriptionTextView"/>
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>

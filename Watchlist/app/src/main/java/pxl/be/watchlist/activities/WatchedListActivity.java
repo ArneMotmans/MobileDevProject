@@ -1,6 +1,5 @@
 package pxl.be.watchlist.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,17 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.adapters.MovieSearchAdapter;
 import pxl.be.watchlist.adapters.WatchListAdapter;
-import pxl.be.watchlist.databaaaz.WatchList;
-import pxl.be.watchlist.databaaaz.Watched;
+import pxl.be.watchlist.database.Watched;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.services.MovieApiService;
 import retrofit2.Call;
@@ -28,13 +22,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
-
 public class WatchedListActivity extends AppCompatActivity {
 
-    Context context;
-    ListView watchedListListView;
-    Retrofit retrofit;
-    MovieApiService movieApiService;
+    private ListView watchedListListView;
+    private Retrofit retrofit;
+    private MovieApiService movieApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

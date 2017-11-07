@@ -13,11 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.adapters.MoviePostersAdapter;
 import pxl.be.watchlist.domain.Movie;
@@ -32,9 +30,9 @@ import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    Retrofit retrofit;
-    MovieApiService movieApiService;
-    GridView moviePostersGridView;
+    private MovieApiService movieApiService;
+    private GridView moviePostersGridView;
+    private Tab selectedTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Home");
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MovieApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(GuavaCallAdapterFactory.create())
@@ -51,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
         movieApiService = retrofit.create(MovieApiService.class);
         moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
+
+        if (savedInstanceState == null) {
+            selectedTab = Tab.POPULAR;
+        }
     }
 
     @Override
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         filtersAdapter.addAll(getResources().getStringArray(R.array.homePageFilters));
         filterSpinner.setAdapter(filtersAdapter);
         filterSpinner.setOnItemSelectedListener(filterSpinnerItemClickListener);
+        filterSpinner.setSelection(selectedTab.index, false);
         return true;
     }
 
@@ -84,147 +87,97 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectedTab",selectedTab.index);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        selectedTab = Tab.getTab(savedInstanceState.getInt("selectedTab"));
+    }
+
     private AdapterView.OnItemSelectedListener filterSpinnerItemClickListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            switch (i){
-                case 0:
-                    onPopularTabClicked();
-                    showNoInternetConnectionMessage();
-                    break;
-                case 1:
-                    onTopRatedClicked();
-                    showNoInternetConnectionMessage();
-                    break;
-                case 2:
-                    onOutNowClicked();
-                    showNoInternetConnectionMessage();
-                    break;
-                case 3:
-                    onUpcomingClicked();
-                    showNoInternetConnectionMessage();
-            }
+           LoadTab(i);
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
+        public void onNothingSelected(AdapterView<?> adapterView) {}
     };
 
     private void onUpcomingClicked() {
+        showNoInternetConnectionMessage();
         MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
+        selectedTab = Tab.UPCOMING;
 
         for (int i = 1; i <= 5; i++) {
-            movieApiService.getUpcomingMovies(i, MovieApiService.API_KEY).enqueue(new Callback<MoviePage>() {
-                @Override
-                public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
-                    MoviePage responseBody = response.body();
-                    GridView moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
-                    MoviePostersAdapter adapter = ((MoviePostersAdapter) moviePostersGridView.getAdapter());
-                    adapter.addMovies(responseBody.getMovies());
-                    Collections.sort(adapter.movies, new Comparator<Movie>() {
+            movieApiService
+                    .getUpcomingMovies(i, MovieApiService.API_KEY)
+                    .enqueue(getGetMoviesRequestCallBack(new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
                             return o2.getPopularity().compareTo(o1.getPopularity());
                         }
-                    });
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFailure(Call<MoviePage> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
+                    }));
         }
     }
 
     private void onTopRatedClicked() {
+        showNoInternetConnectionMessage();
         MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
+        selectedTab = Tab.TOP_RATED;
 
         for (int i = 1; i <= 5; i++) {
-            movieApiService.getTopRatedMovies(i, MovieApiService.API_KEY).enqueue(new Callback<MoviePage>() {
-                @Override
-                public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
-                    MoviePage responseBody = response.body();
-                    GridView moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
-                    MoviePostersAdapter adapter = ((MoviePostersAdapter) moviePostersGridView.getAdapter());
-                    adapter.addMovies(responseBody.getMovies());
-                    Collections.sort(adapter.movies, new Comparator<Movie>() {
+            movieApiService
+                    .getTopRatedMovies(i, MovieApiService.API_KEY)
+                    .enqueue(getGetMoviesRequestCallBack(new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
                             return o2.getVoteAverage().compareTo(o1.getVoteAverage());
                         }
-                    });
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFailure(Call<MoviePage> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
+                    }));
         }
     }
 
     private void onPopularTabClicked(){
+        showNoInternetConnectionMessage();
         MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
+        selectedTab = Tab.POPULAR;
 
         for (int i = 1; i <= 5; i++) {
-            movieApiService.getPopularMovies(i, MovieApiService.API_KEY).enqueue(new Callback<MoviePage>() {
-                @Override
-                public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
-                    MoviePage responseBody = response.body();
-                    GridView moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
-                    MoviePostersAdapter adapter = ((MoviePostersAdapter) moviePostersGridView.getAdapter());
-                    adapter.addMovies(responseBody.getMovies());
-                    Collections.sort(adapter.movies, new Comparator<Movie>() {
-                        @Override
-                        public int compare(Movie o1, Movie o2) {
-                            return o1.getPopularity().compareTo(o2.getPopularity());
-                        }
-                    });
-                    adapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFailure(Call<MoviePage> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-        }
-    }
-
-    private void onOutNowClicked(){
-        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
-        moviePostersGridView.setAdapter(moviePostersAdapter);
-
-        for (int i = 1; i <= 5; i++) {
-            movieApiService.getNowPlayingMovies(i, MovieApiService.API_KEY).enqueue(new Callback<MoviePage>() {
-                @Override
-                public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
-                    MoviePage responseBody = response.body();
-                    GridView moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
-                    MoviePostersAdapter adapter = ((MoviePostersAdapter) moviePostersGridView.getAdapter());
-                    adapter.addMovies(responseBody.getMovies());
-                    Collections.sort(adapter.movies, new Comparator<Movie>() {
+            movieApiService
+                    .getPopularMovies(i, MovieApiService.API_KEY)
+                    .enqueue(getGetMoviesRequestCallBack(new Comparator<Movie>() {
                         @Override
                         public int compare(Movie o1, Movie o2) {
                             return o2.getPopularity().compareTo(o1.getPopularity());
                         }
-                    });
-                    adapter.notifyDataSetChanged();
-                }
+                    }));
+        }
+    }
 
+    private void onOutNowClicked(){
+        showNoInternetConnectionMessage();
+        MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
+        moviePostersGridView.setAdapter(moviePostersAdapter);
+        selectedTab = Tab.OUT_NOW;
+
+        for (int i = 1; i <= 5; i++) {
+            movieApiService
+                    .getNowPlayingMovies(i, MovieApiService.API_KEY)
+                    .enqueue(getGetMoviesRequestCallBack(new Comparator<Movie>() {
                 @Override
-                public void onFailure(Call<MoviePage> call, Throwable t) {
-                    t.printStackTrace();
+                public int compare(Movie o1, Movie o2) {
+                        return o2.getPopularity().compareTo(o1.getPopularity());
                 }
-            });
+            }));
         }
     }
 
@@ -245,6 +198,69 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.noInternetTextView).setVisibility(View.GONE);
         } else {
             findViewById(R.id.noInternetTextView).setVisibility(View.VISIBLE);
+        }
+    }
+
+    private Callback<MoviePage> getGetMoviesRequestCallBack(final Comparator orderBy) {
+        return new Callback<MoviePage>() {
+            @Override
+            public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
+                MoviePage responseBody = response.body();
+                GridView moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
+                MoviePostersAdapter adapter = ((MoviePostersAdapter) moviePostersGridView.getAdapter());
+                adapter.addMovies(responseBody.getMovies());
+                Collections.sort(adapter.getMovies(), orderBy);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<MoviePage> call, Throwable t) {
+                t.printStackTrace();
+            }
+        };
+    };
+
+    private void LoadTab(int tabIndex){
+        switch (tabIndex){
+            case 0:
+                onPopularTabClicked();
+                break;
+            case 1:
+                onTopRatedClicked();
+                break;
+            case 2:
+                onOutNowClicked();
+                break;
+            case 3:
+                onUpcomingClicked();
+        }
+    }
+
+    private enum Tab{
+        POPULAR(0),
+        TOP_RATED (1),
+        OUT_NOW(2),
+        UPCOMING (3);
+
+        public int index;
+
+        Tab(int index){
+            this.index = index;
+        }
+
+        public static Tab getTab(int i){
+            switch (i){
+                case 0:
+                    return POPULAR;
+                case 1:
+                    return TOP_RATED;
+                case 2:
+                    return OUT_NOW;
+                case 3:
+                    return UPCOMING;
+                default:
+                    return POPULAR;
+            }
         }
     }
 }

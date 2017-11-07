@@ -1,18 +1,14 @@
-package pxl.be.watchlist.databaaaz;
+package pxl.be.watchlist.database;
 
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-/**
- * Created by 11502064 on 23/10/2017.
- */
-
-@Table(database = MyDatabase.class)
-public class Watched extends BaseModel {
-    @PrimaryKey
+@Table(database = DatabaseConfiguration.class)
+public class WatchList extends BaseModel {
     @Column
+    @PrimaryKey
     long id;
 
     public void setId(long id) {

@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".databaaaz.MyApplication"
+        android:name=".database.DatabaseInitializer"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,7 +23,7 @@
         <activity android:name=".activities.WatchedListActivity" />
         <activity android:name=".activities.MovieDetailsActivity" />
         <activity android:name=".activities.SearchActivity"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible"/>
     </application>
 
 </manifest>

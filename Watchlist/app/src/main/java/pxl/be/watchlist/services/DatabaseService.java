@@ -1,15 +1,9 @@
 package pxl.be.watchlist.services;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-
 import java.util.List;
-
-import pxl.be.watchlist.databaaaz.WatchList;
-import pxl.be.watchlist.databaaaz.Watched;
-
-/**
- * Created by 11501537 on 24/10/2017.
- */
+import pxl.be.watchlist.database.WatchList;
+import pxl.be.watchlist.database.Watched;
 
 public class DatabaseService {
     public static boolean checkIfAddedToWatchlist(long id){

@@ -9,18 +9,13 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.activities.MainActivity;
 import pxl.be.watchlist.activities.MovieDetailsActivity;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
@@ -31,10 +26,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class MoviePostersAdapter extends ArrayAdapter<Movie> {
+
     private Context context;
-    public List<Movie> movies;
+    private List<Movie> movies;
     private MovieApiService movieApiService;
     private int orientation;
 
@@ -100,5 +95,9 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
 
     public void addMovies(List<Movie> moviesToAdd){
         movies.addAll(moviesToAdd);
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
     }
 }

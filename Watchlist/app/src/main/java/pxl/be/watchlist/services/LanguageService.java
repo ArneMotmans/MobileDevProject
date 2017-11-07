@@ -1,12 +1,7 @@
 package pxl.be.watchlist.services;
 
 import java.util.List;
-
 import pxl.be.watchlist.domain.SpokenLanguage;
-
-/**
- * Created by 11501537 on 21/10/2017.
- */
 
 public class LanguageService {
     public static String getLanguages(List<SpokenLanguage> spokenLanguages){

@@ -12,14 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.squareup.picasso.Picasso;
-
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.databaaaz.WatchList;
+import pxl.be.watchlist.database.WatchList;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
 import pxl.be.watchlist.services.DatabaseService;
@@ -37,8 +35,7 @@ import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class MovieDetailsActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener {
 
-    public static final String API_KEY = "AIzaSyCzyQUfjEdK1UtZ-RgfcgzmXp6GH584rY8";
-
+    public static final String YOUTUBE_API_KEY = "AIzaSyCzyQUfjEdK1UtZ-RgfcgzmXp6GH584rY8";
     private Retrofit retrofit;
     private MovieApiService movieApiService;
     private MovieDetails movieDetails;
@@ -89,7 +86,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
 
         YouTubePlayerSupportFragment frag =
                 (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
-        frag.initialize(API_KEY, this);
+        frag.initialize(YOUTUBE_API_KEY, this);
 
     }
 

@@ -16,11 +16,10 @@ import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.activities.MovieDetailsActivity;
-import pxl.be.watchlist.databaaaz.WatchList;
+import pxl.be.watchlist.database.WatchList;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.TrailersPage;
 import pxl.be.watchlist.services.DatabaseService;
@@ -59,7 +58,6 @@ public class MovieDetailsFragment extends Fragment implements YouTubePlayer.OnIn
         getView(view, R.id.addToWatchListButton, Button.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Save 'movieDetails" to firebase database
                 WatchList movieToBeAdded = new WatchList();
                 movieToBeAdded.setId(movieDetails.getId());
                 movieToBeAdded.save();
@@ -68,7 +66,7 @@ public class MovieDetailsFragment extends Fragment implements YouTubePlayer.OnIn
         });
 
         youtubePlayerFragment = new YouTubePlayerFragment();
-        youtubePlayerFragment.initialize(MovieDetailsActivity.API_KEY, this);
+        youtubePlayerFragment.initialize(MovieDetailsActivity.YOUTUBE_API_KEY, this);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.youtubeFragmentContainer, youtubePlayerFragment);

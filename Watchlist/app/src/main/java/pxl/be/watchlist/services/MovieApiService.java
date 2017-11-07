@@ -1,7 +1,5 @@
 package pxl.be.watchlist.services;
 
-
-import pxl.be.watchlist.domain.ActorsPage;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.MoviePage;
 import pxl.be.watchlist.domain.TrailersPage;
@@ -10,10 +8,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-
 public interface MovieApiService {
-    public final String BASE_URL = "https://api.themoviedb.org/";
-    public final String API_KEY = "0dfa5086610d5e269cd38e12d8778589";
+    String BASE_URL = "https://api.themoviedb.org/";
+    String API_KEY = "0dfa5086610d5e269cd38e12d8778589";
 
     @GET("/3/movie/popular")
     Call<MoviePage> getPopularMovies(@Query("page") int page, @Query("api_key") String apiKey);
@@ -35,7 +32,4 @@ public interface MovieApiService {
 
     @GET("/3/movie/{movie_id}/videos")
     Call<TrailersPage> getMovieTrailerKeys(@Path("movie_id") long id, @Query("api_key") String apiKey);
-
-    @GET("/3/movie/{movie_id}/casts")
-    Call<ActorsPage> getMovieCast(@Path("movie_id") long id, @Query("api_key") String apiKey);
 }

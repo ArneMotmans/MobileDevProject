@@ -2,22 +2,16 @@ package pxl.be.watchlist.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import pxl.be.watchlist.R;
-import pxl.be.watchlist.adapters.MoviePostersAdapter;
 import pxl.be.watchlist.adapters.MovieSearchAdapter;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
@@ -32,11 +26,11 @@ import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class SearchActivity extends AppCompatActivity {
 
-    Retrofit retrofit;
-    MovieApiService movieApiService;
-    ListView seachResultListView;
-    SearchView movieSearchView;
-    Context context;
+    private Retrofit retrofit;
+    private MovieApiService movieApiService;
+    private ListView seachResultListView;
+    private SearchView movieSearchView;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

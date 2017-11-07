@@ -2,7 +2,6 @@ package pxl.be.watchlist.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,22 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.raizlabs.android.dbflow.sql.QueryBuilder;
-import com.raizlabs.android.dbflow.sql.language.BaseOperator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.activities.MovieDetailsActivity;
-import pxl.be.watchlist.databaaaz.WatchList;
-import pxl.be.watchlist.databaaaz.Watched;
-import pxl.be.watchlist.domain.Movie;
+import pxl.be.watchlist.database.WatchList;
+import pxl.be.watchlist.database.Watched;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.services.ImageApiService;
 import pxl.be.watchlist.services.MovieApiService;
@@ -33,7 +25,6 @@ import pxl.be.watchlist.services.ReleaseDateService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class WatchListAdapter extends BaseAdapter {
     private MovieApiService movieApiService;
