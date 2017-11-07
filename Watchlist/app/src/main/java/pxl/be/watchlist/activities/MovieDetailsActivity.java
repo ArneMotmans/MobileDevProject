@@ -1,6 +1,7 @@
 package pxl.be.watchlist.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -40,6 +41,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private MovieApiService movieApiService;
     private MovieDetails movieDetails;
     MenuItem item;
+    YouTubePlayerSupportFragment frag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Details");
 
-        YouTubePlayerSupportFragment frag =
-                (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
+        frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
         frag.initialize(YOUTUBE_API_KEY, this);
 
     }
@@ -155,8 +156,45 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 TrailersPage responseBody = response.body();
                 if (!wasRestored && responseBody.getTrailers().size() > 0) {
                     youTubePlayer.cueVideo(responseBody.getTrailers().get(0).getKey());
+                    final int orientation = getResources().getConfiguration().orientation;
+
+                    youTubePlayer.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+                        @Override
+                        public void onLoading() {
+
+                        }
+
+                        @Override
+                        public void onLoaded(String s) {
+
+                        }
+
+                        @Override
+                        public void onAdStarted() {
+
+                        }
+
+                        @Override
+                        public void onVideoStarted() {
+                            //if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                                youTubePlayer.setFullscreen(true);
+
+                            //}
+                        }
+
+                        @Override
+                        public void onVideoEnded() {
+
+                        }
+
+                        @Override
+                        public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+                        }
+                    });
+
                 } else {
-                    onInitializationFailure(provider, null);
+                    //onInitializationFailure(provider, null);
                 }
             }
 

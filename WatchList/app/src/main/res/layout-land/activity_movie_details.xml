@@ -154,13 +154,28 @@
                 android:paddingRight="7dp"
                 android:layout_marginBottom="5dp"/>
 
-            <fragment
-                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-                android:id="@+id/youtube_fragment"
-                android:layout_width="match_parent"
+            <LinearLayout android:id="@+id/ll_youtube_player"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_below="@id/movieDescriptionTextView"/>
+                android:layout_weight="1"
+                android:layout_marginLeft="55dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginRight="55dp"
+                android:layout_marginEnd="55dp"
+                android:layout_below="@id/movieDescriptionTextView"
+                android:orientation="vertical">
+
+                <fragment
+                    android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+                    android:id="@+id/youtube_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"/>
+                <!--android:layout_below="@id/movieDescriptionTextView"-->
+
+            </LinearLayout>
+
+
 
         </RelativeLayout>
     </ScrollView>
