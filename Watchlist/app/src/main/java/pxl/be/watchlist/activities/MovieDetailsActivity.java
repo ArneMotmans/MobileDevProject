@@ -156,42 +156,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
                 TrailersPage responseBody = response.body();
                 if (!wasRestored && responseBody.getTrailers().size() > 0) {
                     youTubePlayer.cueVideo(responseBody.getTrailers().get(0).getKey());
-                    final int orientation = getResources().getConfiguration().orientation;
-
-                    youTubePlayer.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
-                        @Override
-                        public void onLoading() {
-
-                        }
-
-                        @Override
-                        public void onLoaded(String s) {
-
-                        }
-
-                        @Override
-                        public void onAdStarted() {
-
-                        }
-
-                        @Override
-                        public void onVideoStarted() {
-                            //if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                                youTubePlayer.setFullscreen(true);
-
-                            //}
-                        }
-
-                        @Override
-                        public void onVideoEnded() {
-
-                        }
-
-                        @Override
-                        public void onError(YouTubePlayer.ErrorReason errorReason) {
-
-                        }
-                    });
 
                 } else {
                     //onInitializationFailure(provider, null);
