@@ -39,6 +39,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     private Retrofit retrofit;
     private MovieApiService movieApiService;
     private MovieDetails movieDetails;
+    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +119,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements YouTubePl
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        menu.findItem(R.id.filterSpinnerItem).getActionView().setVisibility(View.GONE);
+        item = menu.findItem(R.id.filterSpinnerItem);
+        item.setVisible(false);
         return true;
     }
 

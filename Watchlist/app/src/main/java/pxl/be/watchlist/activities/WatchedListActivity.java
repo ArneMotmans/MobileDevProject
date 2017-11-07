@@ -27,6 +27,7 @@ public class WatchedListActivity extends AppCompatActivity {
     private ListView watchedListListView;
     private Retrofit retrofit;
     private MovieApiService movieApiService;
+    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,8 @@ public class WatchedListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        menu.findItem(R.id.filterSpinnerItem).getActionView().setVisibility(View.GONE);
+        item = menu.findItem(R.id.filterSpinnerItem);
+        item.setVisible(false);
         return true;
     }
 

@@ -31,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
     private ListView seachResultListView;
     private SearchView movieSearchView;
     private Context context;
+    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,8 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        item = menu.findItem(R.id.filterSpinnerItem);
+        item.setVisible(false);
         return true;
     }
 
