@@ -17,4 +17,5 @@
     <string name="noInternetText">No internet connection</string>
     <string name="removeFromWatchlistText">Remove</string>
     <string name="watchedText">Watched</string>
+    <string name="noDetailsSelectedText">No movie selected</string>
 </resources>

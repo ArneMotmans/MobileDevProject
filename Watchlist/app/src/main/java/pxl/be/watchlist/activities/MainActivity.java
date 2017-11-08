@@ -2,10 +2,11 @@ package pxl.be.watchlist.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,14 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.adapters.MoviePostersAdapter;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MoviePage;
 import pxl.be.watchlist.services.MovieApiService;
+import pxl.be.watchlist.services.RetrofitBuilderService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.GsonConverterFactory;
@@ -41,11 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Home");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MovieApiService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(GuavaCallAdapterFactory.create())
-                .build();
+        Retrofit retrofit = RetrofitBuilderService.build(MovieApiService.BASE_URL);
 
         movieApiService = retrofit.create(MovieApiService.class);
         moviePostersGridView = (GridView) findViewById(R.id.moviePostersGridView);
@@ -53,12 +53,14 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             selectedTab = Tab.POPULAR;
         }
+
+        toggleNoMovieSelectedMessage(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        Spinner filterSpinner = (Spinner)menu.findItem(R.id.filterSpinnerItem).getActionView();
+        Spinner filterSpinner = (Spinner) menu.findItem(R.id.filterSpinnerItem).getActionView();
         ArrayAdapter filtersAdapter = new ArrayAdapter(this, R.layout.spinner_item_layout, R.id.spinnerItem);
         filtersAdapter.addAll(getResources().getStringArray(R.array.homePageFilters));
         filterSpinner.setAdapter(filtersAdapter);
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.homeMenuItem:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("selectedTab",selectedTab.index);
+        outState.putInt("selectedTab", selectedTab.index);
     }
 
     @Override
@@ -102,11 +104,12 @@ public class MainActivity extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener filterSpinnerItemClickListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-           LoadTab(i);
+            LoadTab(i);
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {}
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
     };
 
     private void onUpcomingClicked() {
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void onPopularTabClicked(){
+    private void onPopularTabClicked() {
         showNoInternetConnectionMessage();
         MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
@@ -163,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void onOutNowClicked(){
+    private void onOutNowClicked() {
         showNoInternetConnectionMessage();
         MoviePostersAdapter moviePostersAdapter = new MoviePostersAdapter(MainActivity.this, new ArrayList<Movie>(), movieApiService, getResources().getConfiguration().orientation);
         moviePostersGridView.setAdapter(moviePostersAdapter);
@@ -173,31 +176,32 @@ public class MainActivity extends AppCompatActivity {
             movieApiService
                     .getNowPlayingMovies(i, MovieApiService.API_KEY)
                     .enqueue(getGetMoviesRequestCallBack(new Comparator<Movie>() {
-                @Override
-                public int compare(Movie o1, Movie o2) {
-                        return o2.getPopularity().compareTo(o1.getPopularity());
-                }
-            }));
+                        @Override
+                        public int compare(Movie o1, Movie o2) {
+                            return o2.getPopularity().compareTo(o1.getPopularity());
+                        }
+                    }));
         }
     }
 
-    public static boolean isNetworkStatusAvialable (Context context) {
+    public static boolean isNetworkStatusAvialable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null)
-        {
+        if (connectivityManager != null) {
             NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
+            if (netInfos != null)
+                if (netInfos.isConnected())
                     return true;
         }
         return false;
     }
 
-    public void showNoInternetConnectionMessage(){
-        if(isNetworkStatusAvialable (getApplicationContext())) {
+    public void showNoInternetConnectionMessage() {
+        if (isNetworkStatusAvialable(getApplicationContext())) {
             findViewById(R.id.noInternetTextView).setVisibility(View.GONE);
         } else {
             findViewById(R.id.noInternetTextView).setVisibility(View.VISIBLE);
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                findViewById(R.id.movieDetailsContainer).setVisibility(View.GONE);
         }
     }
 
@@ -220,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
         };
     };
 
-    private void LoadTab(int tabIndex){
-        switch (tabIndex){
+    private void LoadTab(int tabIndex) {
+        switch (tabIndex) {
             case 0:
                 onPopularTabClicked();
                 break;
@@ -236,20 +240,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private enum Tab{
+    private enum Tab {
         POPULAR(0),
-        TOP_RATED (1),
+        TOP_RATED(1),
         OUT_NOW(2),
-        UPCOMING (3);
+        UPCOMING(3);
 
         public int index;
 
-        Tab(int index){
+        Tab(int index) {
             this.index = index;
         }
 
-        public static Tab getTab(int i){
-            switch (i){
+        public static Tab getTab(int i) {
+            switch (i) {
                 case 0:
                     return POPULAR;
                 case 1:
@@ -260,6 +264,16 @@ public class MainActivity extends AppCompatActivity {
                     return UPCOMING;
                 default:
                     return POPULAR;
+            }
+        }
+    }
+
+    public void toggleNoMovieSelectedMessage(boolean visible){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (visible) {
+                findViewById(R.id.noDetailsSelectedTextView).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.noDetailsSelectedTextView).setVisibility(View.GONE);
             }
         }
     }

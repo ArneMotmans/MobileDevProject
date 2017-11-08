@@ -13,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.activities.MovieDetailsActivity;
 import pxl.be.watchlist.domain.Movie;
@@ -45,28 +48,28 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         ImageView imageView;
-        if (convertView == null){
+        if (convertView == null) {
             imageView = new ImageView(context);
         } else {
             imageView = (ImageView) convertView;
         }
         imageView.setAdjustViewBounds(true);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    movieApiService.getMovieDetails(movies.get(position).getId(), MovieApiService.API_KEY).enqueue(movieDetailsCallback);
-                }
-            });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                movieApiService.getMovieDetails(movies.get(position).getId(), MovieApiService.API_KEY).enqueue(movieDetailsCallback);
+            }
+        });
 
         Picasso.with(context)
-                .load(ImageApiService.BASE_URL+movies.get(position).getPosterPath())
+                .load(ImageApiService.BASE_URL + movies.get(position).getPosterPath())
                 .placeholder(R.drawable.ic_poster_placeholder)
                 .error(R.drawable.ic_poster_error)
                 .into(imageView);
         return imageView;
     }
 
-    public Callback<MovieDetails> movieDetailsCallback = new Callback<MovieDetails>() {
+    private Callback<MovieDetails> movieDetailsCallback = new Callback<MovieDetails>() {
         @Override
         public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
             MovieDetails responseBody = response.body();
@@ -77,12 +80,12 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             } else {
-                Activity mainActivity = ((Activity)context);
+                Activity mainActivity = ((Activity) context);
                 MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
                 movieDetailsFragment.setArguments(bundle);
                 FragmentManager fragmentManager = mainActivity.getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.movieDetailsContainer,movieDetailsFragment);
+                transaction.replace(R.id.movieDetailsContainer, movieDetailsFragment);
                 transaction.commit();
             }
         }
@@ -93,7 +96,7 @@ public class MoviePostersAdapter extends ArrayAdapter<Movie> {
         }
     };
 
-    public void addMovies(List<Movie> moviesToAdd){
+    public void addMovies(List<Movie> moviesToAdd) {
         movies.addAll(moviesToAdd);
     }
 

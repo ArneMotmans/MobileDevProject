@@ -10,28 +10,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import java.util.ArrayList;
+
 import pxl.be.watchlist.R;
 import pxl.be.watchlist.adapters.MovieSearchAdapter;
 import pxl.be.watchlist.domain.Movie;
 import pxl.be.watchlist.domain.MovieDetails;
 import pxl.be.watchlist.domain.MoviePage;
 import pxl.be.watchlist.services.MovieApiService;
+import pxl.be.watchlist.services.RetrofitBuilderService;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private Retrofit retrofit;
     private MovieApiService movieApiService;
-    private ListView seachResultListView;
-    private SearchView movieSearchView;
     private Context context;
-    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +37,25 @@ public class SearchActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Search");
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(MovieApiService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(GuavaCallAdapterFactory.create())
-                .build();
+        Retrofit retrofit = RetrofitBuilderService.build(MovieApiService.BASE_URL);
+        context = this;
 
         movieApiService = retrofit.create(MovieApiService.class);
         MovieSearchAdapter movieSearchAdapter = new MovieSearchAdapter(SearchActivity.this, new ArrayList<Movie>(), movieApiService);
-        context = this;
 
-        seachResultListView = (ListView) findViewById(R.id.seachResultListView);
+        initializeSearchResultsList(movieSearchAdapter);
+        openKeyBoard();
+    }
+
+    private void initializeSearchResultsList(MovieSearchAdapter movieSearchAdapter) {
+        ListView seachResultListView = (ListView) findViewById(R.id.seachResultListView);
         seachResultListView.setAdapter(movieSearchAdapter);
         seachResultListView.setOnItemClickListener(searchResultClickListener);
         seachResultListView.setEmptyView(findViewById(R.id.emptySearchListTextView));
+    }
 
-        movieSearchView = ((SearchView) findViewById(R.id.movieSearchView));
+    private void openKeyBoard(){
+        SearchView movieSearchView = ((SearchView) findViewById(R.id.movieSearchView));
         movieSearchView.setQuery("",true);
         movieSearchView.setFocusable(true);
         movieSearchView.setIconified(false);
@@ -118,7 +118,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        item = menu.findItem(R.id.filterSpinnerItem);
+        MenuItem item = menu.findItem(R.id.filterSpinnerItem);
         item.setVisible(false);
         return true;
     }
