@@ -135,6 +135,6 @@ public class MovieDetailsFragment extends Fragment implements YouTubePlayer.OnIn
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        Toast.makeText(getActivity().getApplicationContext(), "No trailer available.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), "Error loading trailer.", Toast.LENGTH_LONG).show();
     }
 }
