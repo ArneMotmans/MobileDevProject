@@ -27,10 +27,8 @@ import pxl.be.watchlist.services.MovieApiService;
 import pxl.be.watchlist.services.RetrofitBuilderService;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.guava.GuavaCallAdapterFactory;
 
 public class MainActivity extends AppCompatActivity {
 

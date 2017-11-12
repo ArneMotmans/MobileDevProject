@@ -1,7 +1,9 @@
 package pxl.be.watchlist.services;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import java.util.List;
+
 import pxl.be.watchlist.database.WatchList;
 import pxl.be.watchlist.database.Watched;
 

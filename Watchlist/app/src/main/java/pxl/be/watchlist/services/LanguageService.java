@@ -1,6 +1,7 @@
 package pxl.be.watchlist.services;
 
 import java.util.List;
+
 import pxl.be.watchlist.domain.SpokenLanguage;
 
 public class LanguageService {

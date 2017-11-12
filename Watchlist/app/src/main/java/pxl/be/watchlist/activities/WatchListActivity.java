@@ -23,7 +23,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static pxl.be.watchlist.services.MovieApiService.*;
+import static pxl.be.watchlist.services.MovieApiService.API_KEY;
+import static pxl.be.watchlist.services.MovieApiService.BASE_URL;
 
 public class WatchListActivity extends AppCompatActivity {
 
