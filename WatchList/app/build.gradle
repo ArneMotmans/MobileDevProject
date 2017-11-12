@@ -23,9 +23,6 @@ android {
 def dbflow_version = "4.0.3"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile files('libs/YouTubeAndroidPlayerApi.jar')
 
     compile 'com.android.support:appcompat-v7:26.+'
@@ -33,10 +30,8 @@ dependencies {
     compile 'javax.annotation:javax.annotation-api:1.2'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
-    //compile 'com.squareup.retrofit2:adapter-guava:2.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    //compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
 
