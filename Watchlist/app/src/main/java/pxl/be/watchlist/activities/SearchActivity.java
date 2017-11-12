@@ -94,7 +94,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         public boolean onQueryTextChange(String newText) {
             if (!newText.equals("")) {
-                movieApiService.searchMovie(movieApiService.API_KEY, newText).enqueue(new Callback<MoviePage>() {
+                movieApiService.searchMovie(newText, movieApiService.API_KEY).enqueue(new Callback<MoviePage>() {
                     @Override
                     public void onResponse(Call<MoviePage> call, Response<MoviePage> response) {
                         MoviePage responseBody = response.body();

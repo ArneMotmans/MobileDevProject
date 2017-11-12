@@ -156,13 +156,6 @@
                 android:paddingRight="7dp"
                 android:layout_marginBottom="5dp"/>
 
-            <!--<fragment-->
-            <!--android:id="@+id/castFragment"-->
-            <!--android:name="pxl.be.watchlist.fragments.CastFragment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/moviePosterImageView"/>-->
-
             <FrameLayout
                 android:id="@+id/youtubeFragmentContainer"
                 android:layout_width="wrap_content"
